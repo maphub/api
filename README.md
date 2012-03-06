@@ -1,4 +1,4 @@
-= OAC Historic Map Annotation Examples =
+# OAC Historic Map Annotation Examples
 
 This repository contains documentation that explains how we apply the Open Annotation Model for the annotation of historic maps. This is a working draft and represents work-in-progress.
 
