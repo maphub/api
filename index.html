@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0083)http://www.openannotation.org/spec/beta/examples/gatsby/index.html#DM_Serialization -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Open Annotation Beta Example: Georeferencing and Commenting Historic Maps</title>
+
+<link rel="stylesheet" href="./css/oac-spec.css" type="text/css">
+</head><body>
+<div id="header">
+<table class="layout">
+	<tbody><tr>
+		<td><img alt="OAC logo" src="./img/oac-logo-words.png" width="100" height="100"></td>
+		<td>
+		<h2 class="title">Open Annotation Beta Example: Georeferencing and Commenting Historic Maps</h2>
+		<h3 class="subTitle">05 March 2012</h3>
+		</td>
+	</tr>
+</tbody></table>
+</div>
+
+<hr>
+
+<dl>
+	<dt>This version:</dt>
+	<dd><a href="http://www.openannotation.org/spec/beta/examples/maps/0.1/">http://www.openannotation.org/spec/beta/examples/maps/0.1/</a></dd>
+	<dt>Latest version:</dt>
+	<dd><a href="http://www.openannotation.org/spec/beta/examples/maps/0.1/">http://www.openannotation.org/spec/beta/examples/maps/0.1/</a></dd>
+</dl>
+<dl class="EditorsContributors">
+	<dt>Editors</dt>
+	<dd><a href="http://www.cs.cornell.edu/~bh392/">Bernhard Haslhofer</a>, Cornell University, Information Science</dd>
+	<dd><a href="http://at.linkedin.com/in/rainersimon">Rainer Simon</a>, Austrian Institute of Technology</dd>
+	<dt>Contributors</dt>
+	<dd>tbd</dd>
+</dl>
+
+<div class="abstract">
+<h2>
+
+<a id="abstract" name="abstract"></a>Abstract</h2>
+<p>
+The following examples originate from the <a href="https://github.com/maphub">Maphub</a> and <a href="http://pelagios-project.blogspot.com/">Pelagios</a> projects and illustrate how to model annotations on historic maps using the Open Annotation model. The examples follow the <a href="http://www.openannotation.org/spec/beta/" title="Open Annotation: Beta Data Model Guide">OA beta specification</a> and cover the following types of annotations:
+
+<ul>
+	<li><strong>Georeference Annotation</strong>: users create an annotation with the intention to express a correspondence between a point/region on the map and a point/region in a defined geographic coordinate system or an authoritative Gazetteer. The goal of this type of annotation is to provide a <a href="http://en.wikipedia.org/wiki/Georeference" title="Georeference - Wikipedia, the free encyclopedia">georeference</a> for the map.</li>
+	<li><strong>Commentarial Annotation</strong>: users associate textual information, tags, links to thesaurus terms or Semantic Web resources, etc. with a point or region on the map. The goal of this type of annotation is to provide additional information about the map or a map segment.</li>
+</ul>
+
+</p>
+
+</div>
+
+<hr>
+
+<h2><a id="contents" name="contents"></a>Table of Contents</h2>
+
+<p class="toc">
+
+1. <a href="#introduction">Introduction</a><br>
+1.1. <a href="#background">Project Background</a><br>
+1.2. <a href="#namespaces">Namespaces Used</a><br>
+
+2. <a href="#georef_example">Georeference Annotations</a><br>
+2.1. <a href="#georef_reference">Georeference by Control Point URI</a><br>
+2.2. <a href="#georef_inline">Georeference by Inline Control Point</a><br>
+
+3. <a href="#comment_example">Commentarial Annotations</a><br>
+3.1. <a href="#comment_simple">Simple Comment on a Map</a><br>
+3.2. <a href="#comment_rectangle">Simple Comment on a Rectangular Map Segment</a><br>
+3.3. <a href="#comment_KML">Simple Comment on a Non-Rectangular Map Segment</a><br>
+3.4. <a href="#comment_inline">Complex Comments</a><br>
+
+4. <a href="#related_work">Related Work</a><br>
+
+</p>
+
+<h3><a id="appendices" name="appendices"></a>Appendices</h3>
+<p class="toc">
+A. <a href="#changelog">Change Log</a><br>
+</p>
+</div>
+
+<hr>
+
+<div class="body">
+
+<h2><a id="introduction" name="introduction"></a>1. Introduction</h2>
+<p>
+Historic maps record historical geographical information and give insight into socio-economic and environmental phenomena such as land use, river channel changes or flood. They allow the reconstruction of past urban environments and draw a picture of the cultural, political and religious context in which they were created. Their geographical accuracy tells us much about the state of technology at the time of their creation.
+</p>
+<p>
+Scholars who study these maps often want to take notes on certain maps or map regions, view certain areas in the context of today’s maps, associate map regions with historical events, places, or even persons. Annotations are the scholarly primitive that allows them to do that and to share their knowledge with others. However, the historic maps that are currently published on the Web, mostly by libraries, don’t allow scholars or end-users to annotate them in a way that is interoperable across systems.
+</p>
+
+<h3><a id="background" name="background"></a>1.1 Project Background</h3>
+
+<p><strong>Maphub</strong> is a Web portal for georeferencing and annotating digitized, high-resolution historic maps and is currently being developed as part of the Open Annotation demonstration activities. All annotations will be represented in the OAC data model and become Web resources that can be accessed by various clients simply by dereferencing HTTP URIs. The portal will be bootstrapped with approximately 6000 public domain high-resolution map scans downloaded from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">Library of Congress Historic Map division</a>. A first <a href="http://vimeo.com/21390925" title="">concept screencast</a> and the portal's <a href="https://github.com/maphub/maphub-portal">source code</a> is available. The portal is built using <a href="http://rubyonrails.org/" title="Ruby on Rails">Ruby on Rails</a> and reuses components (and algorithms) that were previously developed for the <a href="https://github.com/yuma-annotation">YUMA annotation framework</a>. One major goal of this project is also to link user-contributed annotations with data from other publicly available datasources, such as <a href="http://dbpedia.org/" title="DBPedia">DBpedia</a> and <a href="http://www.geonames.org/" title="GeoNames">GeoNames</a>.</p>
+
+<p><strong>Pelagios</strong> is ... <font color="red">short summary</font> </p>
+
+
+<h3><a id="namespaces" name="namespaces"></a>1.2 Namespaces Used</h3>
+<p>This example uses the following namespaces and prefixes to indicate those namespaces:</p>
+<table class="namespace-table" summary="namespaces used in this document">
+	<tbody>
+		<tr>
+			<th>Prefix</th>
+			<th>Namespace URI</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+		<td><code>cnt</code></td>
+		<td><code>http://www.w3.org/2008/content#</code></td>
+<td>Content in RDF [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-rdf-content">Content</a>]</td>
+</tr>
+
+		<tr>
+			<td><code>dc</code></td>
+			<td><code>http://purl.org/dc/elements/1.1/</code></td>
+			<td>Dublin Core elements [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-dc">DC Elements</a>]</td>
+		</tr>
+		<tr>
+			<td><code>dcterms</code></td>
+			<td><code>http://purl.org/dc/terms/</code></td>
+			<td>Dublin Core terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-dct">DC Terms</a>]</td>
+		</tr>
+		
+		<tr>
+			<td><code>foaf</code></td>
+			<td><code>http://xmlns.com/foaf/0.1/</code></td>
+			<td>Friend of a Friend vocabulary terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-foaf">FOAF</a>]</td>
+		</tr>
+
+		<tr>
+			<td><code>oac</code></td>
+			<td><code>http://www.openannotation.org/ns/</code></td>
+			<td>OAC vocabulary terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-oac-ns">OAC</a>]</td>
+		</tr>
+
+		<tr>
+			<td><code>rdf</code></td>
+			<td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td>
+			<td>RDF vocabulary terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-rdfs">RDF Vocabulary</a>]</td>
+		</tr>
+		<tr>
+			<td><code>rdfs</code></td>
+			<td><code>http://www.w3.org/2001/01/rdf-schema#</code></td>
+			<td>RDF Schema vocabulary [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-rdfs">RDF
+			Vocabulary</a>]</td>
+		</tr>
+	</tbody>
+</table>
+
+<font color="red">TODO: update namespace/prefix mappings</font>
+
+<br>
+
+
+<!-- GEOREFERENCE ANNOTATIONS -->
+
+<h2><a id="georef_example"></a>2. Georeference Annotations</h2>
+
+<p>The following examples assume that maps are high-resolution scans, which are available at some Web-accessible URI. In the MapHub project, for instance, we harvested the JPEG2000 map files from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">LoC Maps division</a> and uploaded them into a Web accessible directory. The example map, which we use in the following examples, is available at <a href="http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2" title="Sample LOC Map">http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2</a> and has a width of 7471 and a height of 5952 pixels.</p>
+
+<p>Map images are usually converted into tile sets for online viewing and zooming. MapHub uses the <a href="http://code.google.com/p/magicktiler/" title="magicktiler - A Java tool and embeddable library for converting images into formats suitable for  publishing as zoomable Web images. - Google Project Hosting">magicktiler</a> tool to create Zoomify tilesets from the original JP2 images. The tilesets now reside parallel to the original image files, e.g.: <a href="http://samos.mminf.univie.ac.at/maps/g3400.ar077400/" title="Index of /maps/g3400.ar077400">http://samos.mminf.univie.ac.at/maps/g3400.ar077400/</a>. But since tilesets represent a special view of the original map image, we can assume that the <strong>target of an annotation is always the underlying map image file</strong>.</p>
+
+
+
+<h3><a id="georef_reference"></a>2.1 Georeference by Control Point URI</h3>
+
+<p><a href="http://www.geonames.org/" title="GeoNames">Geonames</a> provides URIs for places and so does Pleiades (<font color="red">???</font>) for historic placenames respectively. For instance:</p>
+
+<ul>
+    <li><a href="http://sws.geonames.org/4997347" title="Ithaca RDF">http://sws.geonames.org/4997347</a> represents the City of Ithaca in NY, USA.</li>
+    <li><font color="red">TODO: Pleiades example.</font></li>
+</ul>
+
+<p>When a user annotates a map with a control point URI, we can use that URI as the annotation body, which has a defined pixel in the map as target. We use the W3C Media Fragment specification to refer to that pixel, simply by defining a rectangle with x, y positions and width and height 1 (xywh=6854,3225,1,1). We introduce the class <strong>oac:GeoReference as an <a href="http://www.w3.org/TR/rdf-schema/#ch_subclassof" title="RDF Vocabulary Description Language 1.0: RDF Schema">rdfs:subClassOf</a> of oac:Annotation</strong> so that clients can distinguish between georeferencing and other types of annotations and interpret the annotations's body and target correctly.</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 1. Georeference Annotation by Control Point URI</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/control_point_uri.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Annotation Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/controlpoints/1&gt;
+    a oac:GeoReference ;
+    oac:hasBody &lt;http://sws.geonames.org/4997347/&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6854,3225,1,1&gt; .
+
+&lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6854,3225,1,1&gt;
+    dcterms:isPartOf &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+<p>Maphub annotations are dereferenceable Web resources that are published following the <a href="http://linkeddatabook.com/editions/1.0/#htoc12" title="Linked Data: Evolving the Web into a Global Data Space">303 URIs Linked Data publishing strategy</a>. Hence, HTTP GET requests with header <code>Accept: application/rdf+xml</code> against <code>http://maphub.info/controlpoints/1</code> returns a <code>303 SEE OTHER</code> response redirecting the requesting client to <code>http://maphub.info/controlpoints/1.rdf</code></p>
+
+<p>Because the annotation is typed as <strong>oac:GeoReference</strong>, clients know that they can expect a control point as the annotation body. Since the body's identifier is a URI, the client can dereference it and gets the following control point description from Geonames (namespaces omitted):</p>
+
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 2. Sample Geonames Response</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Geonames URI Turtle Serialization</div>
+		<pre class="code">
+
+&lt;http://sws.geonames.org/4997347/&gt;
+    gn:childrenFeatures &lt;http://sws.geonames.org/4997347/contains.rdf&gt; ;
+    gn:countryCode &quot;US&quot; ;
+    gn:featureClass gn:A ;
+    gn:featureCode &lt;http://www.geonames.org/ontology#A.ADMD&gt; ;
+    gn:locationMap &lt;http://www.geonames.org/4997347/city-of-ithaca.html&gt; ;
+    gn:name &quot;City of Ithaca&quot; ;
+    gn:parentADM1 &lt;http://sws.geonames.org/5001836/&gt; ;
+    gn:parentCountry &lt;http://sws.geonames.org/6252001/&gt; ;
+    gn:parentFeature &lt;http://sws.geonames.org/5001836/&gt; ;
+    gn:population &quot;2910&quot; ;
+    a gn:Feature ;
+    rdfs:isDefinedBy &quot;http://sws.geonames.org/4997347/about.rdf&quot; ;
+    wgs84_pos:alt &quot;240&quot; ;
+    wgs84_pos:lat &quot;43.29225&quot; ;
+    wgs84_pos:long &quot;-84.60472&quot; .
+
+&lt;http://sws.geonames.org/4997347/about.rdf&gt;
+    cc:attributionName &quot;GeoNames&quot;^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    cc:attributionURL &lt;http://sws.geonames.org/4997347/&gt; ;
+    cc:license &lt;http://creativecommons.org/licenses/by/3.0/&gt; ;
+    dcterms:created &quot;2006-01-15&quot;^^&lt;http://www.w3.org/2001/XMLSchema#date&gt; ;
+    dcterms:modified &quot;2011-05-14&quot;^^&lt;http://www.w3.org/2001/XMLSchema#date&gt; ;
+    a foaf:Document ;
+    foaf:primaryTopic &lt;http://sws.geonames.org/4997347/&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+<p><font color="red">Note: it is unclear whether the annotation body should be the "document" (http://sws.geonames.org/4997347/about.rdf) or the "resource" (http://sws.geonames.org/4997347/). Referring to the "resource" would be the LD solution. Furthermore, it is unclear why we need the dc:format property.</font></p>
+
+<p><font color="red">NOTE: Introducing oac:georeferences as relationship between the body, instead of a type oac:Annotation</text> could be an alternative solution. If oac:georeferences is defined with rdfs:domain oac:ControlPoint and rdfs:range oac:Map, we can infer the body and target types, and also the annotation type. However, the "Give me all Georeferences Annotation" query gets more complex than SELECT ?x WHERE ?x rdf:type oac:GeoReference. It would then be SELECT ?x WHERE ?x rdf:type oac:Annotation . ?x oac:georeferences ?y .</font></p>
+
+
+<p>Maphub Annotation also carry additional properties, such as the dcterms:creator or the dcterms:created date. The annotation creator is represented by a UUID URI resource. Additional metadata about the Annotation data can be represented by making statements about the annotation document URI <code>http://maphub.info/controlpoints/1</code></p>
+
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 3. Georeference Annotation by Control Point URI with Details</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/control_point_uri_details.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Annotation Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/controlpoints/2&gt;
+    a oac:GeoReference ;
+    oac:hasBody &lt;http://sws.geonames.org/4997347/&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6854,3225,1,1&gt; ;
+    dcterms:created "2012-01-15T00:00:00"^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt; ;
+    dcterms:creator &lt;urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6&gt; ;
+    rdfs:isDefinedBy &lt;http://maphub.info/controlpoints/2.rdf&gt; .
+
+&lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6854,3225,1,1&gt;
+    dcterms:isPartOf &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
+
+&lt;urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6&gt;
+    a foaf:Person ;
+    foaf:name "John Doe"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    foaf:mbox &lt;mailto:john@doe.com&gt; .
+
+&lt;http://maphub.info/controlpoints/2.rdf&gt;
+    cc:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; ;
+    a foaf:Document ;
+    foaf:primaryTopic &lt;http://maphub.info/controlpoints/2&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+<p>Users typically georeference a map by creating several control points. Since each control point is created at a different time, we can model this as a set of separate, single-body annotations on a common target map.</p>
+
+<center>
+<table width="85%">
+	<tbody>
+	<tr>
+		<th class="exhead">Figure 4. Multiple Georeference Annotations</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/control_point_uri_multiple.png" class="example" alt=""> </center></td>
+	</tr>
+    </tbody>
+</table>
+</center>
+
+
+<h3><a id="georef_inline"></a>2.2 Georeference by Inline Control Point</h3>
+
+<p>We cannot assume that all possible places are represented by Web resources with dereferencable HTTP URIs. So we also need to model place information as in-line bodies of Georeferences. The following example illustrates how to represent control points with inline bodies.</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 5. Georeference by Inline Control Point</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/control_point_inline.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Inline Georeference - Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/controlpoint/3&gt;
+    a oac:GeoReference ;
+    oac:hasBody &lt;urn:uuid:926a3b20-617c-11e1-b86c-0800200c9a66&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6854,3225,1,1&gt; .
+
+&lt;urn:uuid:926a3b20-617c-11e1-b86c-0800200c9a66&gt;
+    gn:name "City of Ithaca"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    wgs84_pos:lat "43.29225"^^&lt;http://www.w3.org/2001/XMLSchema#float&gt; ;
+    wgs84_pos:long "-84.60472"^^&lt;http://www.w3.org/2001/XMLSchema#float&gt; .
+    
+&lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6854,3225,1,1&gt;
+    dcterms:isPartOf &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+
+<!-- COMMENTARIAL ANNOTATIONS EXAMPLES -->
+
+<h2><a id="comment_example"></a>3. Commentarial Annotations</h2>
+
+<p>Commenting on maps or map segments is another frequent historic map annotation use case. This form of annotation varies in technical complexity, depending on the body structure and the annotation target. In the following, we illustrate how to represent various forms of commentarial annotations.</p>
+
+
+<h3><a id="comment_simple"/>3.1. Simple Comment on a Map</h3>
+
+<p>Associating unstructured text with a whole map is the simplest use case. The body is represented as inline information, the target is the map image file.</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 6. Simple Map Comment</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/comment_simple.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Simple Map Comment - Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/annotation/1&gt;
+    a oac:Annotation ;
+    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
+
+&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
+    a cnt:ContentAsText ;
+    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+
+<p><font color="red">We should consider allowing literals as body values, as in the Annotation Ontology. This is probably the simplest case and character encoding doesn't need to be specified because this the serialization format's job. Turtle, for instance, requires all data to be encoded in UTF-8.</font></p>
+
+<h3><a id="comment_rectangle"/>3.2. Simple Comment on a Rectangular Map Segment</h3>
+
+<p>Rectangular map segments can be addressed using Media Fragment URIs. The following example addresses a rectangular segment with width 20 and height 30 within a map at position x=6800 and y=3220, with x=0 and y=0 being the top left corner of the map image.</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 7. Simple Map Comment on Rectangular Segment</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/comment_rectangular_segment.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Simple Map Comment on Rectangular Segment - Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/annotation/2&gt;
+    a oac:Annotation ;
+    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6800,3220,20,30&gt; ;
+    
+&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
+    a cnt:ContentAsText ;
+    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+
+&lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6800,3220,20,30&gt;
+    dcterms:isPartOf &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+
+<h3><a id="comment_KML"/>3.3. Simple Comment on a Non-Rectangular Map Segment</h3>
+
+<p>Non-rectangular map segments, such as polygons, cannot be expressed by the W3C Media Fragment URI specification. Therefore, we introduce an intermediary ConstraintTarget (CT-1) node, which constrains the target of the annotation to a particular segment. The segment information is further describe by a Constraint resource (C-1). Since we want to use SVG to express segment information, the Constraint node is of type <strong>oac:SVGConstraint</strong>, which is a subclass of oac:Constraint. The SVG snippet describing the segment is an XML document, which is attached as literal value of type <strong>rdf:XMLLiteral</strong> to the Constraint node. The SVG literal must be formatted as <a href="http://www.w3.org/TR/xml-exc-c14n/" title="Exclusive XML Canonicalization Version 1.0">canonical XML</a>.</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 8. Simple Map Comment on Polygon Segment</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/comment_polygon_segment.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Simple Map Comment on Polygon Segment - Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/annotation/3&gt;
+    a oac:Annotation ;
+    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
+    oac:hasTarget &lt;60a9ec00-6732-11e1-b86c-0800200c9a66&gt; .
+    
+&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
+    a cnt:ContentAsText ;
+    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+
+&lt;60a9ec00-6732-11e1-b86c-0800200c9a66&gt;
+    a oac:ConstraintTarget ;
+    oac:constrains &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
+    oac:constrainedBy &lt;d64223b0-6732-11e1-b86c-0800200c9a66&gt; .
+
+&lt;d64223b0-6732-11e1-b86c-0800200c9a66&gt;
+    a oac:SvgConstraint ;
+    rdf:value "&lt;svg&gt;...&lt;/svg&gt;"^^rdf:XMLLiteral .
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+<p><font color="red">NOTE: instead of the XMLLiteral label, we could also use the properties / classes defined by the <a href="http://www.w3.org/TR/Content-in-RDF10/" title="Representing Content in RDF 1.0">Content in RDF</a> specification. What are the pros of doing that?</font></p>
+
+<p><font color="red">NOTE: Do we need to further describe how to represent SVG information?</font></p>
+
+<h3><a id="comment_inline"/>3.4. Complex Comments</h3>
+
+<p>Comments often go beyond simple textual descriptions. In the Maphub portal, for instance, the system proposes semantic tags (e.g., DBPedia URIs) to the user while they are commenting on a certain map or map segment. When users accept proposed tags by selecting them, they become part of the annotation. We can represent this by using the <a href="http://code.google.com/p/annotation-ontology/wiki/IntegrationWithTagOntology" title="AO - Annotation Ontology">Annotation Ontology's Tagging</a> property <strong>ao:hasTopic</strong>.</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
+		<th class="exhead">Figure 9. Complex Comment Annotation</th>
+	</tr>
+	<tr>
+		<td>
+		<div class="exsubhead">Model Instance</div>
+		<center> <img src="./img/comment_complex.png" class="example" alt=""> </center></td>
+	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Maphub Simple Map Comment on Rectangular Segment - Turtle serialization</div>
+		<pre class="code">
+
+&lt;http://maphub.info/annotation/4&gt;
+    a oac:Annotation ;
+    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
+    ao:hasTopic &lt;http://dbpedia.org/resource/Cayuga_Lake&gt; ;
+    ao:hasTopic &lt;http://dbpedia.org/resource/Ithaca,_New_York&gt; .
+    
+&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
+    a cnt:ContentAsText ;
+    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+
+        </pre>
+        </td>
+	</tr>
+</tbody></table>
+</center>
+
+
+<p><font color="red">Note: If we want to represent the relationships between the tags and the text (e.g., the named entity strings) things are getting more complex. We could probably model this as annotations on the textual body. But for Maphub I don't see any necessity.</font></p>
+
+
+<div class="changelog">
+<h2><a id="changelog" name="changelog"></a>B. Change Log</h2>
+<table class="changelog" summary="change log">
+	<tbody>
+		<tr>
+			<th>Date</th>
+			<th>Editor</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>2012-03-05</td>
+			<td>bhaslhofer</td>
+			<td>1st commentarial annotation draft</td>
+		</tr>
+		<tr>
+			<td>2012-02-27</td>
+			<td>bhaslhofer</td>
+			<td>1st georeference annotation draft</td>
+		</tr>
+		<tr>
+			<td>2012-02-20</td>
+			<td>bhaslhofer</td>
+			<td>initial draft for georeferences</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+&nbsp;<br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="./oac_map_annotation_files/88x31.png"></a><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">This work </span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.openannotation.org/" property="cc:attributionName" rel="cc:attributionURL">the Open Annotation Collaboration</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+
+</body></html>
