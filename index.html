@@ -95,7 +95,14 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <p><strong>Maphub</strong> is a Web portal for georeferencing and annotating digitized, high-resolution historic maps and is currently being developed as part of the Open Annotation demonstration activities. All annotations will be represented in the OAC data model and become Web resources that can be accessed by various clients simply by dereferencing HTTP URIs. The portal will be bootstrapped with approximately 6000 public domain high-resolution map scans downloaded from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">Library of Congress Historic Map division</a>. A first <a href="http://vimeo.com/21390925" title="">concept screencast</a> and the portal's <a href="https://github.com/maphub/maphub-portal">source code</a> is available. The portal is built using <a href="http://rubyonrails.org/" title="Ruby on Rails">Ruby on Rails</a> and reuses components (and algorithms) that were previously developed for the <a href="https://github.com/yuma-annotation">YUMA annotation framework</a>. One major goal of this project is also to link user-contributed annotations with data from other publicly available datasources, such as <a href="http://dbpedia.org/" title="DBPedia">DBpedia</a> and <a href="http://www.geonames.org/" title="GeoNames">GeoNames</a>.</p>
 
-<p><strong>Pelagios</strong> is ... <font color="red">short summary</font> </p>
+<p><a href="http://pelagios-project.blogspot.com"><strong>Pelagios</strong></a> is a Digital Classics network which 
+aims to interconnect scholarly resources from the domain of Ancient World research through the places they refer to.
+The key idea is to annotate place references in research datasets (text, image, or map collections; object databases)
+with machine-readable links to a common place directory. This step not only provides an explicit georeference to the
+annoted resources; it also joins up the otherwise disjoint datasets to an interlinked graph with the common place
+directory as the central hub. Pelagios uses the OAC model to express place annotations; and the
+<a href="http://pleiades.stoa.org">Pleiades</a> Gazetteer as common place directory.
+</p>
 
 
 <h3><a id="namespaces" name="namespaces"></a>1.2 Namespaces Used</h3>
@@ -167,11 +174,13 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <h3><a id="georef_reference"></a>2.1 Georeference by Control Point URI</h3>
 
-<p><a href="http://www.geonames.org/" title="GeoNames">Geonames</a> provides URIs for places and so does Pleiades (<font color="red">???</font>) for historic placenames respectively. For instance:</p>
+<p><a href="http://www.geonames.org/" title="GeoNames">Geonames</a> is an online Gazetteer that provides URIs for places. 
+There are also other sources on the Web which provide place URIs, such as <a href="pleiades.stoa.org">Pleiades</a>, a 
+Gazetteer specifically for historic placenames in the ancient mediterranean. For instance:</p>
 
 <ul>
     <li><a href="http://sws.geonames.org/4997347" title="Ithaca RDF">http://sws.geonames.org/4997347</a> represents the City of Ithaca in NY, USA.</li>
-    <li><font color="red">TODO: Pleiades example.</font></li>
+    <li><a href="http://pleiades.stoa.org/places/530905">http://pleiades.stoa.org/places/530905</a> represents the ancient Greek settlement of Ithaca (which was located on the present-day Greek island of the same name).</li>
 </ul>
 
 <p>When a user annotates a map with a control point URI, we can use that URI as the annotation body, which has a defined pixel in the map as target. We use the W3C Media Fragment specification to refer to that pixel, simply by defining a rectangle with x, y positions and width and height 1 (xywh=6854,3225,1,1). We introduce the class <strong>oac:GeoReference as an <a href="http://www.w3.org/TR/rdf-schema/#ch_subclassof" title="RDF Vocabulary Description Language 1.0: RDF Schema">rdfs:subClassOf</a> of oac:Annotation</strong> so that clients can distinguish between georeferencing and other types of annotations and interpret the annotations's body and target correctly.</p>
@@ -254,6 +263,8 @@ Scholars who study these maps often want to take notes on certain maps or map re
 </center>
 
 <p><font color="red">Note: it is unclear whether the annotation body should be the "document" (http://sws.geonames.org/4997347/about.rdf) or the "resource" (http://sws.geonames.org/4997347/). Referring to the "resource" would be the LD solution. Furthermore, it is unclear why we need the dc:format property.</font></p>
+
+<p><font color="#990000">Note (RSi): we've discussed the doc vs. resource issue at length (seriously...) in Pelagios. We've now settled to use the resource as the annotation body. Although I'm not totally happy with it: "The place 'Ithaka' is about the piece of text that says 'Ithaca'" doesn't seem right. Whereas "The Gazetteer document about Ithaca is about the piece of text that says 'Ithaca'" does.</font></p>
 
 <p><font color="red">NOTE: Introducing oac:georeferences as relationship between the body, instead of a type oac:Annotation</text> could be an alternative solution. If oac:georeferences is defined with rdfs:domain oac:ControlPoint and rdfs:range oac:Map, we can infer the body and target types, and also the annotation type. However, the "Give me all Georeferences Annotation" query gets more complex than SELECT ?x WHERE ?x rdf:type oac:GeoReference. It would then be SELECT ?x WHERE ?x rdf:type oac:Annotation . ?x oac:georeferences ?y .</font></p>
 
@@ -561,6 +572,11 @@ Scholars who study these maps often want to take notes on certain maps or map re
 			<td>2012-02-20</td>
 			<td>bhaslhofer</td>
 			<td>initial draft for georeferences</td>
+		</tr>
+		<tr>
+			<td>2012-03-1</td>
+			<td>rsimon</td>
+			<td>some initial work on the pelagios view, plus comments</td>
 		</tr>
 	</tbody>
 </table>
