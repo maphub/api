@@ -544,6 +544,35 @@ Gazetteer specifically for historic placenames in the ancient mediterranean. For
         </pre>
         </td>
 	</tr>
+
+	<tr>
+		<td>
+		<div class="exsubhead">Annotation Text with TEI Markup Example</div>
+		<pre class="code">
+
+&lt;http://maphub.info/annotation/4&gt;
+    a oac:Annotation ;
+    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
+    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
+    
+&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
+    a cnt:ContentAsText ;
+    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
+    cnt:chars "&lt;text&gt;
+&lt;body&gt;
+&lt;p&gt;One of these lakes must be 
+  &lt;placeName&gt;
+    &lt;region&gt;Cayuga Lake&lt;/region&gt;
+    &lt;idno type="URL"&gt;http://dbpedia.org/resource/Cayuga_Lake&lt;/idno&gt;
+  &lt;/placeName&gt;
+  ...
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/text&gt;"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+
+        </pre>
+        </td>
+	</tr>
 </tbody></table>
 </center>
 
