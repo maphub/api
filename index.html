@@ -544,8 +544,14 @@ Gazetteer specifically for historic placenames in the ancient mediterranean. For
         </pre>
         </td>
 	</tr>
+</tbody></table>
+</center>
 
-	<tr>
+<p>In case we want to mark up named entities (such as mentions of places or persons) directly in the annotation text, we propose to express the annotation as a segment of <a href="http://www.tei-c.org/">TEI</a> encoded text. (Please note that the inline markup itself IS NOT a valid TEI document. However we argue it is straightforward to compile a TEI document for the annotated image through concatenation of annotations.)</p>
+
+<center>
+<table width="85%">
+	<tbody><tr>
 		<td>
 		<div class="exsubhead">Annotation Text with TEI Markup Example</div>
 		<pre class="code">
@@ -556,7 +562,7 @@ Gazetteer specifically for historic placenames in the ancient mediterranean. For
     oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
     
 &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
-    a cnt:ContentAsText ;
+    a cnt:ContentAsXML ;
     cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
     cnt:chars "&lt;text&gt;
 &lt;body&gt;
@@ -607,9 +613,14 @@ Gazetteer specifically for historic placenames in the ancient mediterranean. For
 			<td>initial draft for georeferences</td>
 		</tr>
 		<tr>
-			<td>2012-03-1</td>
+			<td>2012-03-10</td>
 			<td>rsimon</td>
 			<td>some initial work on the pelagios view, plus comments</td>
+		</tr>
+		<tr>
+			<td>2012-03-13</td>
+			<td>rsimon</td>
+			<td>added TEI example</td>
 		</tr>
 	</tbody>
 </table>
