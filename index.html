@@ -1,51 +1,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0083)http://www.openannotation.org/spec/beta/examples/gatsby/index.html#DM_Serialization -->
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Open Annotation Beta Example: Georeferencing and Commenting Historic Maps</title>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-<link rel="stylesheet" href="./css/oac-spec.css" type="text/css">
-</head><body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Maphub Open Annotation API Documentation</title>
+    <link rel="stylesheet" href="./css/oac-spec.css" type="text/css">
+</head>
+
+<body>
+
 <div id="header">
 <table class="layout">
-	<tbody><tr>
-		<td><img alt="OAC logo" src="./img/oac-logo-words.png" width="100" height="100"></td>
-		<td>
-		<h2 class="title">Open Annotation Beta Example: Georeferencing and Commenting Historic Maps</h2>
-		<h3 class="subTitle">05 March 2012</h3>
-		</td>
-	</tr>
+    <tbody><tr>
+        <td><img alt="OAC logo" src="./img/oac-logo-words.png" width="100" height="100"></td>
+        <td>
+        <h2 class="title">Maphub Open Annotation API Documentation</h2>
+        <h3 class="subTitle">20 July 2012</h3>
+        </td>
+    </tr>
 </tbody></table>
 </div>
 
 <hr>
 
-<dl>
-	<dt>This version:</dt>
-	<dd><a href="http://www.openannotation.org/spec/beta/examples/maps/0.1/">http://www.openannotation.org/spec/beta/examples/maps/0.1/</a></dd>
-	<dt>Latest version:</dt>
-	<dd><a href="http://www.openannotation.org/spec/beta/examples/maps/0.1/">http://www.openannotation.org/spec/beta/examples/maps/0.1/</a></dd>
-</dl>
-<dl class="EditorsContributors">
-	<dt>Editors</dt>
-	<dd><a href="http://www.cs.cornell.edu/~bh392/">Bernhard Haslhofer</a>, Cornell University, Information Science</dd>
-	<dd><a href="http://at.linkedin.com/in/rainersimon">Rainer Simon</a>, Austrian Institute of Technology</dd>
-	<dt>Contributors</dt>
-	<dd>tbd</dd>
-</dl>
-
 <div class="abstract">
-<h2>
+    <h2><a id="abstract" name="abstract"></a>Abstract</h2>
 
-<a id="abstract" name="abstract"></a>Abstract</h2>
-<p>
-The following examples originate from the <a href="https://github.com/maphub">Maphub</a> and <a href="http://pelagios-project.blogspot.com/">Pelagios</a> projects and illustrate how to model annotations on historic maps using the Open Annotation model. The examples follow the <a href="http://www.openannotation.org/spec/beta/" title="Open Annotation: Beta Data Model Guide">OA beta specification</a> and cover the following types of annotations:
+    <p>This document describes how Maphub provides a Linked Data API by implementing the <a href="http://www.openannotation.org/" title="Welcome">W3C Open Annotation</a> specification. The provided examples depict how to use the Open Annotation model in the context of digitized historic maps or high-resolution image material and also show how to express <a href="http://www.openannotation.org/spec/extension/#SemanticTag" title="Open Annotation Draft Extension Specification">Semantic Tags</a>. The Maphub API currently provides access to two types of annotations:</p>   
 
-<ul>
-	<li><strong>Georeference Annotation</strong>: users create an annotation with the intention to express a correspondence between a point/region on the map and a point/region in a defined geographic coordinate system or an authoritative Gazetteer. The goal of this type of annotation is to provide a <a href="http://en.wikipedia.org/wiki/Georeference" title="Georeference - Wikipedia, the free encyclopedia">georeference</a> for the map.</li>
-	<li><strong>Commentarial Annotation</strong>: users associate textual information, tags, links to thesaurus terms or Semantic Web resources, etc. with a point or region on the map. The goal of this type of annotation is to provide additional information about the map or a map segment.</li>
-</ul>
-
-</p>
+    <ul>
+        <li><strong>Georeference Annotation</strong>: users create an annotation with the intention to express a correspondence between a point/region on the map and a point/region in a defined geographic coordinate system or an authoritative Gazetteer. The goal of this type of annotation is to provide a <a href="http://en.wikipedia.org/wiki/Georeference" title="Georeference - Wikipedia, the free encyclopedia">georeference</a> for the map.</li>
+        <li><strong>Commentarial Annotation</strong>: users associate textual information, tags, links to thesaurus terms or Semantic Web resources, etc. with a point or region on the map. The goal of this type of annotation is to provide additional information about the map or a map segment.</li>
+    </ul>
 
 </div>
 
@@ -56,7 +43,7 @@ The following examples originate from the <a href="https://github.com/maphub">Ma
 <p class="toc">
 
 1. <a href="#introduction">Introduction</a><br>
-1.1. <a href="#background">Project Background</a><br>
+1.1. <a href="#background">Background</a><br>
 1.2. <a href="#namespaces">Namespaces Used</a><br>
 
 2. <a href="#georef_example">Georeference Annotations</a><br>
@@ -91,86 +78,75 @@ Historic maps record historical geographical information and give insight into s
 Scholars who study these maps often want to take notes on certain maps or map regions, view certain areas in the context of today’s maps, associate map regions with historical events, places, or even persons. Annotations are the scholarly primitive that allows them to do that and to share their knowledge with others. However, the historic maps that are currently published on the Web, mostly by libraries, don’t allow scholars or end-users to annotate them in a way that is interoperable across systems.
 </p>
 
-<h3><a id="background" name="background"></a>1.1 Project Background</h3>
+<h3><a id="background" name="background"></a>1.1 Background</h3>
 
-<p><strong>Maphub</strong> is a Web portal for georeferencing and annotating digitized, high-resolution historic maps and is currently being developed as part of the Open Annotation demonstration activities. All annotations will be represented in the OAC data model and become Web resources that can be accessed by various clients simply by dereferencing HTTP URIs. The portal will be bootstrapped with approximately 6000 public domain high-resolution map scans downloaded from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">Library of Congress Historic Map division</a>. A first <a href="http://vimeo.com/21390925" title="">concept screencast</a> and the portal's <a href="https://github.com/maphub/maphub-portal">source code</a> is available. The portal is built using <a href="http://rubyonrails.org/" title="Ruby on Rails">Ruby on Rails</a> and reuses components (and algorithms) that were previously developed for the <a href="https://github.com/yuma-annotation">YUMA annotation framework</a>. One major goal of this project is also to link user-contributed annotations with data from other publicly available datasources, such as <a href="http://dbpedia.org/" title="DBPedia">DBpedia</a> and <a href="http://www.geonames.org/" title="GeoNames">GeoNames</a>.</p>
-
-<p><a href="http://pelagios-project.blogspot.com"><strong>Pelagios</strong></a> is a Digital Classics network which 
-aims to interconnect scholarly resources from the domain of Ancient World research through the places they refer to.
-The key idea is to annotate place references in research datasets (text, image, or map collections; object databases)
-with machine-readable links to a common place directory. This step not only provides an explicit georeference to the
-annoted resources; it also joins up the otherwise disjoint datasets to an interlinked graph with the common place
-directory as the central hub. Pelagios uses the OAC model to express place annotations; and the
-<a href="http://pleiades.stoa.org">Pleiades</a> Gazetteer as common place directory.
-</p>
-
+<p><a href="http://maphub.github.com/" title="maphub">Maphub</a> is a Web portal for hosting digitized, high-resolution historic maps. It allows users to annotate and contribute their knowledge about historic maps. It is currently being developed as part of the <a href="http://www.openannotation.org/" title="Welcome">Open Annotation Collaboration</a> demonstration activities. All user-contributed annotations are openly shared on the Web and represented in the <a href="http://www.openannotation.org/spec/core/" title="Open Annotation Draft Data Model">W3C Open Annotation data model</a>. Thereby they become Web resources that can be accessed by various clients simply by dereferencing HTTP URIs.</p>
+    
+<p>The current demo release is bootstrapped with approximately 6000 public domain high-resolution map scans from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">Library of Congress Historic Map division</a>. A first <a href="http://vimeo.com/21390925" title="">concept screencast</a> and the portal's <a href="https://github.com/maphub/maphub-portal">source code</a> is available. The portal is built using <a href="http://rubyonrails.org/" title="Ruby on Rails">Ruby on Rails</a> and reuses components (and algorithms) that were previously developed for the <a href="https://github.com/yuma-annotation">YUMA annotation framework</a>. User-contributed annotations are linked with resources in other publicly available datasources, such as <a href="http://dbpedia.org/" title="DBPedia">DBpedia</a> and <a href="http://www.geonames.org/" title="GeoNames">GeoNames</a>.</p>
 
 <h3><a id="namespaces" name="namespaces"></a>1.2 Namespaces Used</h3>
-<p>This example uses the following namespaces and prefixes to indicate those namespaces:</p>
+
+<p>This document uses the following namespaces and prefixes to indicate those namespaces:</p>
+
 <table class="namespace-table" summary="namespaces used in this document">
-	<tbody>
-		<tr>
-			<th>Prefix</th>
-			<th>Namespace URI</th>
-			<th>Description</th>
-		</tr>
-		<tr>
-		<td><code>cnt</code></td>
-		<td><code>http://www.w3.org/2008/content#</code></td>
-<td>Content in RDF [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-rdf-content">Content</a>]</td>
-</tr>
-
-		<tr>
-			<td><code>dc</code></td>
-			<td><code>http://purl.org/dc/elements/1.1/</code></td>
-			<td>Dublin Core elements [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-dc">DC Elements</a>]</td>
-		</tr>
-		<tr>
-			<td><code>dcterms</code></td>
-			<td><code>http://purl.org/dc/terms/</code></td>
-			<td>Dublin Core terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-dct">DC Terms</a>]</td>
-		</tr>
-		
-		<tr>
-			<td><code>foaf</code></td>
-			<td><code>http://xmlns.com/foaf/0.1/</code></td>
-			<td>Friend of a Friend vocabulary terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-foaf">FOAF</a>]</td>
-		</tr>
-
-		<tr>
-			<td><code>oac</code></td>
-			<td><code>http://www.openannotation.org/ns/</code></td>
-			<td>OAC vocabulary terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-oac-ns">OAC</a>]</td>
-		</tr>
-
-		<tr>
-			<td><code>rdf</code></td>
-			<td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td>
-			<td>RDF vocabulary terms [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-rdfs">RDF Vocabulary</a>]</td>
-		</tr>
-		<tr>
-			<td><code>rdfs</code></td>
-			<td><code>http://www.w3.org/2001/01/rdf-schema#</code></td>
-			<td>RDF Schema vocabulary [<a href="http://www.openannotation.org/spec/beta/examples/gatsby/index.html#ref-rdfs">RDF
-			Vocabulary</a>]</td>
-		</tr>
-	</tbody>
+    <tbody>
+        <tr>
+            <th>Prefix</th>
+            <th>Namespace URI</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>oa</code></td>
+            <td><code>http://www.w3.org/ns/openannotation/core/</code></td>
+            <td>The core Open Annotation model</td>
+        </tr>
+        <tr>
+            <td><code>oax</code></td>
+            <td><code>http://www.w3.org/ns/openannotation/extension/</code></td>
+            <td>Interoperable extensions to the core model</td>
+        </tr>
+        <tr>
+            <td><code>cnt</code></td>
+            <td><code>http://www.w3.org/2008/content#</code></td>
+            <td>Representing Content in RDF</td>
+        </tr>
+        <tr>
+            <td><code>dc</code></td>
+            <td><code>http://purl.org/dc/elements/1.1/</code></td>
+            <td>Dublin Core Elements</td>
+        </tr>
+        <tr>
+            <td><code>dcterms</code></td>
+            <td><code>http://purl.org/dc/terms/</code></td>
+            <td>Dublin Core Terms</td>
+        </tr>
+        <tr>
+            <td><code>foaf</code></td>
+            <td><code>http://xmlns.com/foaf/0.1/</code></td>
+            <td>Friend of a Friend vocabulary terms</td>
+        </tr>
+        <tr>
+            <td><code>rdf</code></td>
+            <td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td>
+            <td>RDF vocabulary terms</td>
+        </tr>
+        <tr>
+            <td><code>rdfs</code></td>
+            <td><code>http://www.w3.org/2001/01/rdf-schema#</code></td>
+            <td>RDF Schema vocabulary</td>
+        </tr>
+    </tbody>
 </table>
 
-<font color="red">TODO: update namespace/prefix mappings</font>
-
 <br>
-
 
 <!-- GEOREFERENCE ANNOTATIONS -->
 
 <h2><a id="georef_example"></a>2. Georeference Annotations</h2>
 
-<p>The following examples assume that maps are high-resolution scans, which are available at some Web-accessible URI. In the MapHub project, for instance, we harvested the JPEG2000 map files from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">LoC Maps division</a> and uploaded them into a Web accessible directory. The example map, which we use in the following examples, is available at <a href="http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2" title="Sample LOC Map">http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2</a> and has a width of 7471 and a height of 5952 pixels.</p>
+<p>In the following examples we refer to a high-resolution scan of the <a href="http://en.wikipedia.org/wiki/Waldseem%C3%BCller_map" title="Waldseemüller map - Wikipedia, the free encyclopedia">Waldseemüller map</a>. We keep a copy of the JPEG2000 digitized map file from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">LoC Maps division</a> at <a href="http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2" title="Digitized Waldseemüller map">http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2</a>. The raw map image has a width of 18000 and a height of 10029 pixels.</p>
 
-<p>Map images are usually converted into tile sets for online viewing and zooming. MapHub uses the <a href="http://code.google.com/p/magicktiler/" title="magicktiler - A Java tool and embeddable library for converting images into formats suitable for  publishing as zoomable Web images. - Google Project Hosting">magicktiler</a> tool to create Zoomify tilesets from the original JP2 images. The tilesets now reside parallel to the original image files, e.g.: <a href="http://samos.mminf.univie.ac.at/maps/g3400.ar077400/" title="Index of /maps/g3400.ar077400">http://samos.mminf.univie.ac.at/maps/g3400.ar077400/</a>. But since tilesets represent a special view of the original map image, we can assume that the <strong>target of an annotation is always the original full-resolution source image file</strong>.</p>
-
-
+<p>Map images are usually converted into tile sets for online viewing and zooming. MapHub uses the <a href="http://code.google.com/p/magicktiler/" title="magicktiler - A Java tool and embeddable library for converting images into formats suitable for publishing as zoomable Web images. - Google Project Hosting">magicktiler</a> tool to create Zoomify tilesets from the original JP2 images. The tilesets now reside parallel to the original image files, e.g.: <a href="http://samos.mminf.univie.ac.at/maps/ts_zoomify/g3200.ct000725C.jp2">http://samos.mminf.univie.ac.at/maps/ts_zoomify/g3200.ct000725C.jp2</a>. But since tilesets represent a special view of the original map image, we can assume that the <strong>target</strong> of an annotation is always the original full-resolution <strong>map image file</strong>.</p>
 
 <h3><a id="georef_reference"></a>2.1 Georeference by Control Point URI</h3>
 
