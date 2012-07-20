@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Maphub Open Annotation API Documentation</title>
-    <link rel="stylesheet" href="./css/oac-spec.css" type="text/css">
+    <link rel="stylesheet" href="./css/maphub-api.css" type="text/css">
 </head>
 
 <body>
@@ -45,8 +45,11 @@
 2. <a href="#georef_example">Georeference Annotations</a><br>
 
 3. <a href="#comment_example">Commentarial Annotations</a><br>
+<!--
+4. <a href="#annotation_index">Annotation Index</a><br>
+-->
 
-4. <a href="#related_work">Related Work</a><br>
+4. <a href="#references">References and Further Information</a><br>
 
 </p>
 
@@ -157,13 +160,13 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <h2><a id="georef_example"></a>2. Georeference Annotations</h2>
 
-<p>A control points associates a place URI (a <strong>Semantic Tag</strong>) with a point on the map, which is the annotation (<strong>Target</strong>).</p>
+<p>A Georeference Annotation, as shown in Figure 2, associates a place URI (a <strong>Semantic Tag</strong>) with a place on the map, which is the annotation (<strong>Target</strong>).</p>
 
 <center>
 <table width="85%">
     <tbody>
         <tr>
-            <th class="exhead">Figure 2. Example Control Point.</th>
+            <th class="exhead">Figure 2. Example Georeference Annotation.</th>
         </tr>
         <tr>
             <td>
@@ -185,14 +188,14 @@ Scholars who study these maps often want to take notes on certain maps or map re
     <li><a href="http://sws.geonames.org/2761369/">http://sws.geonames.org/2761369/</a>: Vienna, AT</li>
 </ul>
 
-<p>Georeference Annotations (Control Points) in Maphub are dereferenceable Web resources. When a client issues an HTTP GET request against the Georeference Annotation HTTP URI, Maphub determines the response format based on the value of the HTTP Accept header submitted by the client.</p>
+<p>Georeference Annotations in Maphub are dereferenceable Web resources. When a client issues an HTTP GET request against the Georeference Annotation HTTP URI, Maphub determines the response format based on the value of the HTTP Accept header submitted by the client.</p>
 
-<p>Figure 2 shows an example Georeference Annotation (<code>http://maphubdev.mminf.univie.ac.at/control_points/1</code>) represented in the Open Annotation model.</p>
+<p>Figure 3 shows an example Georeference Annotation (<code>http://maphubdev.mminf.univie.ac.at/control_points/1</code>) represented in the Open Annotation model.</p>
 
 <center>
 <table width="85%">
     <tbody><tr>
-        <th class="exhead">Figure 3. Open Annotation Georeference Annotations (Control Points)</th>
+        <th class="exhead">Figure 3. Open Annotation Georeference Annotation (Control Point)</th>
     </tr>
     <tr>
         <td>
@@ -202,7 +205,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
     <tr>
         <td>
-        <div class="exsubhead">Georeference Annotations - Turtle serialization</div>
+        <div class="exsubhead">Georeference Annotation - Turtle serialization</div>
         <pre class="code">
 
         @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
@@ -242,257 +245,147 @@ Scholars who study these maps often want to take notes on certain maps or map re
 </tbody></table>
 </center>
 
-<h1>OLD STUFF - To be updated</h1>
-
 <!-- COMMENTARIAL ANNOTATIONS -->
 
 <h2><a id="comment_example"></a>3. Commentarial Annotations</h2>
 
-<p>Commenting on maps or map segments is another frequent historic map annotation use case. This form of annotation varies in technical complexity, depending on the body structure and the annotation target. In the following, we illustrate how to represent various forms of commentarial annotations.</p>
+<p>Commenting on maps or map segments, as shown in Figure 4, is major use case in Maphub. Users can select and comment map regions and while they are writing their comments, the system proposes possibly relevant tags. These tags are in fact links to <a href="http://dbpedia.org/About" title="wiki.dbpedia.org : About">DBPedia</a>, and therefore denoted as Semantic Tags. Accepted tags become part of the annotation.</p>
 
-<p>Associating unstructured text with a whole map is the simplest use case. The body is represented as inline information, the target is the map image file.</p>
-
-<center>
-<table width="85%">
-	<tbody><tr>
-		<th class="exhead">Figure 6. Simple Map Comment</th>
-	</tr>
-	<tr>
-		<td>
-		<div class="exsubhead">Model Instance</div>
-		<center> <img src="./img/comment_simple.png" class="example" alt=""> </center></td>
-	</tr>
-
-	<tr>
-		<td>
-		<div class="exsubhead">Maphub Simple Map Comment - Turtle serialization</div>
-		<pre class="code">
-
-&lt;http://maphub.info/annotation/1&gt;
-    a oac:Annotation ;
-    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
-    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
-
-&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
-    a cnt:ContentAsText ;
-    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
-    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
-
-        </pre>
-        </td>
-	</tr>
-</tbody></table>
-</center>
-
-
-<p><font color="red">We should consider allowing literals as body values, as in the Annotation Ontology. This is probably the simplest case and character encoding doesn't need to be specified because this the serialization format's job. Turtle, for instance, requires all data to be encoded in UTF-8.</font></p>
-
-<h3><a id="comment_rectangle"/>3.2. Simple Comment on a Rectangular Map Segment</h3>
-
-<p>Rectangular map segments can be addressed using Media Fragment URIs. The following example addresses a rectangular segment with width 20 and height 30 within a map at position x=6800 and y=3220, with x=0 and y=0 being the top left corner of the map image.</p>
+<p>Figure 4 shows an example commentarial map annotation (<code>http://maphubdev.mminf.univie.ac.at/annotations/1</code>) created in Maphub.</p>
 
 <center>
 <table width="85%">
-	<tbody><tr>
-		<th class="exhead">Figure 7. Simple Map Comment on Rectangular Segment</th>
-	</tr>
-	<tr>
-		<td>
-		<div class="exsubhead">Model Instance</div>
-		<center> <img src="./img/comment_rectangular_segment.png" class="example" alt=""> </center></td>
-	</tr>
-
-	<tr>
-		<td>
-		<div class="exsubhead">Maphub Simple Map Comment on Rectangular Segment - Turtle serialization</div>
-		<pre class="code">
-
-&lt;http://maphub.info/annotation/2&gt;
-    a oac:Annotation ;
-    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
-    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6800,3220,20,30&gt; ;
-    
-&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
-    a cnt:ContentAsText ;
-    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
-    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
-
-&lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2#xywh=6800,3220,20,30&gt;
-    dcterms:isPartOf &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; .
-
-        </pre>
-        </td>
-	</tr>
-</tbody></table>
+    <tbody>
+        <tr>
+            <th class="exhead">Figure 4. Example Commentarial Annotation.</th>
+        </tr>
+        <tr>
+            <td>
+                <center>
+                    <img src="./img/maphub_comment_region.jpg" class="example" alt="Commentarial Annotation - Region"/>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <center>
+                    <img src="./img/maphub_comment.jpg" class="example" alt="Commentarial Annotation - Comment"/>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>
 </center>
 
-
-<h3><a id="comment_KML"/>3.3. Simple Comment on a Non-Rectangular Map Segment</h3>
-
-<p>Non-rectangular map segments, such as polygons, cannot be expressed by the W3C Media Fragment URI specification. Therefore, we introduce an intermediary ConstraintTarget (CT-1) node, which constrains the target of the annotation to a particular segment. The segment information is further describe by a Constraint resource (C-1). Since we want to use SVG to express segment information, the Constraint node is of type <strong>oac:SVGConstraint</strong>, which is a subclass of oac:Constraint. The SVG snippet describing the segment is an XML document, which is attached as literal value of type <strong>rdf:XMLLiteral</strong> to the Constraint node. The SVG literal must be formatted as <a href="http://www.w3.org/TR/xml-exc-c14n/" title="Exclusive XML Canonicalization Version 1.0">canonical XML</a>.</p>
+<p>Figure 5 illustrates how this annotation is represented in the Open Collaboration Model. The annotation text is represented as <a href="http://www.openannotation.org/spec/core/#InlineBody" title="Open Annotation Draft Data Model">Inline Body</a>, and the semantic tags as <a href="http://www.openannotation.org/spec/extension/#SemanticTag" title="Open Annotation Draft Extension Specification">Semantic Tags</a>. Since the annotation is about part of the map resource, the annotation target is a <a href="http://www.openannotation.org/spec/core/#TargetSpecific" title="Open Annotation Draft Data Model">Specific Target</a>, which is further described by two <a href="http://www.openannotation.org/spec/core/#Selector" title="Open Annotation Draft Data Model">Selector</a> representations: one <a href="http://www.openannotation.org/spec/extension/#SelectorSvg" title="Open Annotation Draft Extension Specification">SVGSelector</a> and a custom Selector that expresses the same information in the <a href="http://en.wikipedia.org/wiki/Well-known_text" title="Well-known text - Wikipedia, the free encyclopedia">Well-known text (WKT)</a> markup language, which is commonly used in geographic information systems.</p>
 
 <center>
 <table width="85%">
-	<tbody><tr>
-		<th class="exhead">Figure 8. Simple Map Comment on Polygon Segment</th>
-	</tr>
-	<tr>
-		<td>
-		<div class="exsubhead">Model Instance</div>
-		<center> <img src="./img/comment_polygon_segment.png" class="example" alt=""> </center></td>
-	</tr>
+    <tbody><tr>
+        <th class="exhead">Figure 5. Open Annotation Commentarial Annotation</th>
+    </tr>
+    <tr>
+        <td>
+        <div class="exsubhead">Model Instance</div>
+        <center> <img src="./img/maphub_oa_comment.png" class="example" alt="Control Point Example"> </center></td>
+    </tr>
 
-	<tr>
-		<td>
-		<div class="exsubhead">Maphub Simple Map Comment on Polygon Segment - Turtle serialization</div>
-		<pre class="code">
+    <tr>
+        <td>
+        <div class="exsubhead">Commentarial Annotation - Turtle serialization</div>
+        <pre class="code">
+            @prefix ct: &lt;http://www.w3.org/2011/content#&gt; .
+            @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+            @prefix foaf: &lt;http://xmlns.com/foaf/spec/&gt; .
+            @prefix oa: &lt;http://www.w3.org/ns/openannotation/core/&gt; .
+            @prefix oax: &lt;http://www.w3.org/ns/openannotation/extensions/&gt; .
+            @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 
-&lt;http://maphub.info/annotation/3&gt;
-    a oac:Annotation ;
-    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
-    oac:hasTarget &lt;60a9ec00-6732-11e1-b86c-0800200c9a66&gt; .
-    
-&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
-    a cnt:ContentAsText ;
-    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
-    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+            &lt;http://maphubdev.mminf.univie.ac.at/annotations/1&gt; a oa:Annotation;
+               oa:annotated &quot;2012-07-18T02:03:58Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt;;
+               oa:annotator &lt;274c4218-d14b-11e1-b9b2-00163e110825&gt;;
+               oa:generated &quot;2012-07-18T02:03:58Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt;;
+               oa:generator &lt;http://maphubdev.mminf.univie.ac.at&gt;;
+               oa:hasBody &lt;275163a6-d14b-11e1-b9b2-00163e110825&gt;;
+               oa:hasTarget &lt;2751d020-d14b-11e1-b9b2-00163e110825&gt;;
+               oax:hasSemanticTag &lt;http://dbpedia.org/resource/Mediterranean_Sea&gt;,
+                 &lt;http://dbpedia.org/resource/Strait_of_Gibraltar&gt;,
+                 &lt;http://dbpedia.org/resource/Pillars_of_Hercules&gt;,
+                 &lt;http://dbpedia.org/resource/Gibraltar&gt;,
+                 &lt;http://dbpedia.org/resource/Atlantic_Ocean&gt;,
+                 &lt;http://dbpedia.org/resource/Classical_antiquity&gt;,
+                 &lt;http://dbpedia.org/resource/Ancient_history&gt;,
+                 &lt;http://dbpedia.org/resource/Ancient_Egypt&gt;,
+                 &lt;http://dbpedia.org/resource/Mediterranean_Basin&gt; .
 
-&lt;60a9ec00-6732-11e1-b86c-0800200c9a66&gt;
-    a oac:ConstraintTarget ;
-    oac:constrains &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
-    oac:constrainedBy &lt;d64223b0-6732-11e1-b86c-0800200c9a66&gt; .
+            &lt;274c4218-d14b-11e1-b9b2-00163e110825&gt; foaf:mbox &quot;bernhard.haslhofer@cornell.edu&quot;;
+               foaf:name &quot;behas&quot; .
 
-&lt;d64223b0-6732-11e1-b86c-0800200c9a66&gt;
-    a oac:SvgConstraint ;
-    rdf:value "&lt;svg&gt;...&lt;/svg&gt;"^^rdf:XMLLiteral .
+            &lt;275163a6-d14b-11e1-b9b2-00163e110825&gt; a ct:ContentAsText;
+               dcterms:format &quot;text/plain&quot;;
+               ct:chars &quot;In antiquity, the Strait of Gibraltar (which connects the 
+               Atlantic Ocean with the Mediterranean Sea) was also known by the name \&quot;The Pillars
+               of Hercules\&quot;. This is the reason for this inscription!&quot; .
+
+            &lt;2751d020-d14b-11e1-b9b2-00163e110825&gt; a oa:SpecificResource;
+               oa:hasSelector &lt;2752261a-d14b-11e1-b9b2-00163e110825&gt;,
+                 &lt;27527570-d14b-11e1-b9b2-00163e110825&gt;;
+               oa:hasSource &quot;http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2&quot; .
+
+            &lt;2752261a-d14b-11e1-b9b2-00163e110825&gt; a ct:ContentAsText;
+               dcterms:format &quot;image/svg&quot;;
+               ct:chars &quot;&quot;&quot;
+                &lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;
+                     &lt;polygon xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                          points=&quot;5315,5639 5444,5529 5505,5593 5346,5691 5315,5639&quot; /&gt;
+
+                &quot;&quot;&quot; .
+
+            &lt;27527570-d14b-11e1-b9b2-00163e110825&gt; a ct:ContentAsText;
+               dcterms:format &quot;application/wkt&quot;;
+               ct:chars &quot;POLYGON((5315 5639,5444 5529,5505 5593,5346 5691,5315 5639))&quot; .
         </pre>
         </td>
-	</tr>
+    </tr>
 </tbody></table>
 </center>
 
-<p><font color="red">NOTE: instead of the XMLLiteral label, we could also use the properties / classes defined by the <a href="http://www.w3.org/TR/Content-in-RDF10/" title="Representing Content in RDF 1.0">Content in RDF</a> specification. What are the pros of doing that?</font></p>
+<!-- ANNOTATION INDEX
 
-<p><font color="red">NOTE: Do we need to further describe how to represent SVG information?</font></p>
+<h2><a id="annotation_index"></a>4. Annotation Index</h2>
 
-<h3><a id="comment_inline"/>3.4. Complex Comments</h3>
+-->
 
-<p>Comments often go beyond simple textual descriptions. In the Maphub portal, for instance, the system proposes semantic tags (e.g., DBPedia URIs) to the user while they are commenting on a certain map or map segment. When users accept proposed tags by selecting them, they become part of the annotation. We can represent this by using the <a href="http://code.google.com/p/annotation-ontology/wiki/IntegrationWithTagOntology" title="AO - Annotation Ontology">Annotation Ontology's Tagging</a> property <strong>ao:hasTopic</strong>.</p>
-
-<p><font color="#990000">Note (RSi): +1 for the <em>hasTopic</em> approach! (Do you know if this - or similar - will be part of the consolidated OAC/AO draft?)</font></p>
-
-<center>
-<table width="85%">
-	<tbody><tr>
-		<th class="exhead">Figure 9. Complex Comment Annotation</th>
-	</tr>
-	<tr>
-		<td>
-		<div class="exsubhead">Model Instance</div>
-		<center> <img src="./img/comment_complex.png" class="example" alt=""> </center></td>
-	</tr>
-
-	<tr>
-		<td>
-		<div class="exsubhead">Maphub Simple Map Comment on Rectangular Segment - Turtle serialization</div>
-		<pre class="code">
-
-&lt;http://maphub.info/annotation/4&gt;
-    a oac:Annotation ;
-    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
-    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
-    ao:hasTopic &lt;http://dbpedia.org/resource/Cayuga_Lake&gt; ;
-    ao:hasTopic &lt;http://dbpedia.org/resource/Ithaca,_New_York&gt; .
-    
-&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
-    a cnt:ContentAsText ;
-    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
-    cnt:chars "One of these lakes must be Cayuga Lake..."^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
-
-        </pre>
-        </td>
-	</tr>
-</tbody></table>
-</center>
-
-<p>In case we want to mark up named entities (such as mentions of places or persons) directly in the annotation text, we propose to express the annotation as a segment of <a href="http://www.tei-c.org/">TEI</a> encoded text. (Please note that the inline markup itself IS NOT a valid TEI document. However we argue it is straightforward to compile a TEI document for the annotated image through concatenation of annotations.)</p>
-
-<center>
-<table width="85%">
-	<tbody><tr>
-		<td>
-		<div class="exsubhead">Annotation Text with TEI Markup Example</div>
-		<pre class="code">
-
-&lt;http://maphub.info/annotation/4&gt;
-    a oac:Annotation ;
-    oac:hasBody &lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt; ;
-    oac:hasTarget &lt;http://samos.mminf.univie.ac.at/maps/g3400.ar077400.jp2&gt; ;
-    
-&lt;urn:uuid:b70232d0-66f9-11e1-b86c-0800200c9a66&gt;
-    a cnt:ContentAsXML ;
-    cnt:characterEncoding "UTF-8"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; ;
-    cnt:chars "&lt;text&gt;
-&lt;body&gt;
-&lt;p&gt;One of these lakes must be 
-  &lt;placeName&gt;
-    &lt;region&gt;Cayuga Lake&lt;/region&gt;
-    &lt;idno type="URL"&gt;http://dbpedia.org/resource/Cayuga_Lake&lt;/idno&gt;
-  &lt;/placeName&gt;
-  ...
-&lt;/p&gt;
-&lt;/body&gt;
-&lt;/text&gt;"^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .
-
-        </pre>
-        </td>
-	</tr>
-</tbody></table>
-</center>
-
-
-<p><font color="red">Note: If we want to represent the relationships between the tags and the text (e.g., the named entity strings) things are getting more complex. We could probably model this as annotations on the textual body. But for Maphub I don't see any necessity.</font></p>
-
-<p><font color="#990000">Note (RSi): I was thinking along those lines for the future of yuma.js. However, the way I'd currently do it would be to use TEI-encoded text instead of plain text (that way tags would be embedded in the text).</font></p>
-
+<a id="references" name="References"></a>
+<h2>4. References and Further Information</h2>
+<dl>
+    <dd>Haslhofer, B. Simon, R. Sanderson, R. Van de Sompel, H. (2011.) "<a href="http://eprints.cs.univie.ac.at/3360" title="Open annotations on multimedia Web resources - Faculty of CS Repository">The Open Annotation Collaboration (OAC) Model</a>", Multimedia Tools and Applications, Springer, to appear: 2012</dd>
+    <br/>
+    <dd>Simon, R. and Haslhofer, B. and Robitza, W. and Momeni Roochi, E.: <a href="http://eprints.cs.univie.ac.at/2840" title="Semantically Augmented Annotations in Digitized Map Collections - Faculty of CS Repository">Semantically Augmented Annotations in Digitized Map Collections</a>. In: ACM/IEEE Joint Conference on Digital Libraries (JCDL), June 13-17, 2011, Ottawa, Ontario, Canada (2011)</dd>
+</dl>
 
 <div class="changelog">
 <h2><a id="changelog" name="changelog"></a>B. Change Log</h2>
 <table class="changelog" summary="change log">
-	<tbody>
-		<tr>
-			<th>Date</th>
-			<th>Editor</th>
-			<th>Description</th>
-		</tr>
-		<tr>
-			<td>2012-03-05</td>
-			<td>bhaslhofer</td>
-			<td>1st commentarial annotation draft</td>
-		</tr>
-		<tr>
-			<td>2012-02-27</td>
-			<td>bhaslhofer</td>
-			<td>1st georeference annotation draft</td>
-		</tr>
-		<tr>
-			<td>2012-02-20</td>
-			<td>bhaslhofer</td>
-			<td>initial draft for georeferences</td>
-		</tr>
-		<tr>
-			<td>2012-03-10</td>
-			<td>rsimon</td>
-			<td>some initial work on the pelagios view, plus comments</td>
-		</tr>
-		<tr>
-			<td>2012-03-13</td>
-			<td>rsimon</td>
-			<td>added TEI example</td>
-		</tr>
-	</tbody>
+    <tbody>
+        <tr>
+            <th>Date</th>
+            <th>Editor</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>2012-07-20</td>
+            <td>behas</td>
+            <td>Maphub v.0.3 API documentation</td>
+        </tr>
+    </tbody>
 </table>
 </div>
-&nbsp;<br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="./oac_map_annotation_files/88x31.png"></a><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">This work </span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.openannotation.org/" property="cc:attributionName" rel="cc:attributionURL">the Open Annotation Collaboration</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+<br>
 
-</body></html>
+<div id="license">
+    <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="./img/88x31.png"></a><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">This work is supported </span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.openannotation.org/" property="cc:attributionName" rel="cc:attributionURL">the Open Annotation Collaboration</a> and licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</p>
+</div>
+
+</body>
+</html>

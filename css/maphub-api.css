@@ -142,13 +142,13 @@ table.layout td {
 }
 
 .exhead {
-	font-weight: bold;	
+    font-weight: bold;  
 }
 
 .exsubhead {
-	font-weight: bold;
-	color: #005A9C;
-	padding-left: 1em;
+    font-weight: bold;
+    color: #005A9C;
+    padding-left: 1em;
 }
 
 .title {
@@ -188,15 +188,16 @@ li, p {
 
 
 .extable td {
-	border: 1px dashed black;
-	font-size: small;
-	}
+    border: 1px dashed black;
+    font-size: small;
+}
 
 /* Default table layout */
 table {
  empty-cells: show;
  border-collapse: collapse;
- margin-bottom: .5ex;
+ margin-bottom: 2ex;
+ margin-top: 2ex;
 }
 
 table caption {
