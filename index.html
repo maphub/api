@@ -45,11 +45,10 @@
 2. <a href="#georef_example">Georeference Annotations</a><br>
 
 3. <a href="#comment_example">Commentarial Annotations</a><br>
-<!--
-4. <a href="#annotation_index">Annotation Index</a><br>
--->
 
-4. <a href="#references">References and Further Information</a><br>
+4. <a href="#annotation_index">Annotation Index</a><br>
+
+5. <a href="#references">References and Further Information</a><br>
 
 </p>
 
@@ -190,7 +189,9 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <p>Georeference Annotations in Maphub are dereferenceable Web resources. When a client issues an HTTP GET request against the Georeference Annotation HTTP URI, Maphub determines the response format based on the value of the HTTP Accept header submitted by the client.</p>
 
-<p>Figure 3 shows an example Georeference Annotation (<code>http://maphubdev.mminf.univie.ac.at/control_points/1</code>) represented in the Open Annotation model.</p>
+<p>Figure 3 shows an example Georeference Annotation represented in the Open Annotation model. It can be retrieved by executing the following curl request:</br>
+<code>curl -H "Accept: text/turtle" http://maphubdev.mminf.univie.ac.at/control_points/1</code>
+</p>
 
 <center>
 <table width="85%">
@@ -251,7 +252,11 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <p>Commenting on maps or map segments, as shown in Figure 4, is major use case in Maphub. Users can select and comment map regions and while they are writing their comments, the system proposes possibly relevant tags. These tags are in fact links to <a href="http://dbpedia.org/About" title="wiki.dbpedia.org : About">DBPedia</a>, and therefore denoted as Semantic Tags. Accepted tags become part of the annotation.</p>
 
-<p>Figure 4 shows an example commentarial map annotation (<code>http://maphubdev.mminf.univie.ac.at/annotations/1</code>) created in Maphub.</p>
+<p>Figure 4 shows an example commentarial map annotation created in Maphub.</p>
+
+<p>The annotation can be retrieved by executing the following curl request:
+<code>curl -H "Accept: text/turtle" http://maphubdev.mminf.univie.ac.at/annotations/1</code>
+</p>
 
 <center>
 <table width="85%">
@@ -350,11 +355,92 @@ Scholars who study these maps often want to take notes on certain maps or map re
 </tbody></table>
 </center>
 
-<!-- ANNOTATION INDEX
+
+<!-- ANNOTATION INDEX -->
 
 <h2><a id="annotation_index"></a>4. Annotation Index</h2>
 
--->
+<p>Individual Georeference and Commentarial Annotations can be retrieved by dereferencing their HTTP URI, as shown before. To get list of available annotations, Maphub offers two annotation indices, one for each annotation type. An annotation index is represented in the <a href="http://www.openarchives.org/ore/" title="Open Archives Initiative Protocol - Object Exchange and Reuse">OAI Object Reuse and Exchange</a> model. Figure 6 and 7 show the two indices currently exposed by Maphub.</p>
+
+<p>An annotation index can be retrieved by executing the following curl request:
+<br/>
+<code>curl http://maphubdev.mminf.univie.ac.at/control_points.rdf</code>
+<br/>
+<code>curl http://maphubdev.mminf.univie.ac.at/annotations.rdf</code>
+<br/>
+</p>
+
+<center>
+<table width="85%">
+    <tbody>
+    <tr>
+        <th class="exhead">Figure 6. Georeference Annotation Index</th>
+    </tr>
+    <tr>
+        <td>
+        <div class="exsubhead">Georeference Annotation Index - RDF/XML serialization</div>
+        <pre class="code">
+            &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+            &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot; 
+                xmlns:ore=&quot;http://www.openarchives.org/ore/terms/&quot;
+                xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot;
+                xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+                xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; &gt;
+
+                &lt;rdf:Description rdf:about=&quot;http://maphubdev.mminf.univie.ac.at/control_points&quot;&gt;
+                    &lt;rdf:type rdf:resource=&quot;http://www.openarchives.org/ore/terms/Aggregation&quot;/&gt;
+                    &lt;dc:title&gt;Maphub Controlpoints&lt;/dc:title&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/1&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/2&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/3&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/4&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/9&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/10&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/11&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/12&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/13&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/14&quot;/&gt;
+                &lt;/rdf:Description&gt;
+
+            &lt;/rdf:RDF&gt;
+        </pre>
+        </td>
+    </tr>
+</tbody></table>
+</center>
+
+<center>
+<table width="85%">
+    <tbody>
+    <tr>
+        <th class="exhead">Figure 7. Commentarial Annotation Index</th>
+    </tr>
+    <tr>
+        <td>
+        <div class="exsubhead">Commentarial Annotation Index - RDF/XML serialization</div>
+        <pre class="code">
+            &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+            &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot; 
+                xmlns:ore=&quot;http://www.openarchives.org/ore/terms/&quot;
+                xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot;
+                xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
+                xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; &gt;
+
+                &lt;rdf:Description rdf:about=&quot;http://maphubdev.mminf.univie.ac.at/annotations&quot;&gt;
+                    &lt;rdf:type rdf:resource=&quot;http://www.openarchives.org/ore/terms/Aggregation&quot;/&gt;
+                    &lt;dc:title&gt;Maphub Commentarial Annotations&lt;/dc:title&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/annotations/1&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/annotations/5&quot;/&gt;
+                &lt;/rdf:Description&gt;
+
+            &lt;/rdf:RDF&gt;        
+        </pre>
+        </td>
+    </tr>
+</tbody></table>
+</center>
+
+<!-- REFERENCES-->
 
 <a id="references" name="References"></a>
 <h2>4. References and Further Information</h2>
