@@ -82,13 +82,12 @@ Scholars who study these maps often want to take notes on certain maps or map re
 <table width="85%">
     <tbody>
         <tr>
-            <th class="exhead">Figure 1. Example Map Annotations.</th>
+            <th class="exhead">Figure 1. Example Map.</th>
         </tr>
         <tr>
             <td>
-                <div class="exsubhead">Example Map</div>
                 <center>
-                    <img src="./img/map_annotation.jpg" class="example" alt="Example Map Annotations"/>
+                    <img src="./img/maphub_map.jpg" class="example" alt="Example Map Annotations"/>
                 </center>
             </td>
         </tr>
@@ -158,7 +157,27 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <h2><a id="georef_example"></a>2. Georeference Annotations</h2>
 
-<p>A control points associates a place URI (a <strong>Semantic Tag</strong>) with a point on the map, which is the annotation (<strong>Target</strong>). Place URIs are provided by the <a href="http://www.geonames.org/" title="GeoNames">Geonames</a> online gazetteer:</p>
+<p>A control points associates a place URI (a <strong>Semantic Tag</strong>) with a point on the map, which is the annotation (<strong>Target</strong>).</p>
+
+<center>
+<table width="85%">
+    <tbody>
+        <tr>
+            <th class="exhead">Figure 2. Example Control Point.</th>
+        </tr>
+        <tr>
+            <td>
+                <center>
+                    <img src="./img/maphub_control_point.jpg" class="example" alt="Example Control Point"/>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</center>
+
+
+<p>Place URIs are provided by the <a href="http://www.geonames.org/" title="GeoNames">Geonames</a> online gazetteer:</p>
 
 <ul>
     <li><a href="http://sws.geonames.org/2643743/">http://sws.geonames.org/2643743/</a>: London, UK</li>
@@ -166,7 +185,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
     <li><a href="http://sws.geonames.org/2761369/">http://sws.geonames.org/2761369/</a>: Vienna, AT</li>
 </ul>
 
-<p>Georeference Annotations (Control Points) are dereferenceable Web resources. When a client issues an HTTP GET request against the Georeference Annotation HTTP URI, Maphub determines the response format based on the value of the HTTP Accept header submitted by the client.</p>
+<p>Georeference Annotations (Control Points) in Maphub are dereferenceable Web resources. When a client issues an HTTP GET request against the Georeference Annotation HTTP URI, Maphub determines the response format based on the value of the HTTP Accept header submitted by the client.</p>
 
 <p>Figure 2 shows an example Georeference Annotation (<code>http://maphubdev.mminf.univie.ac.at/control_points/1</code>) represented in the Open Annotation model.</p>
 
@@ -230,9 +249,6 @@ Scholars who study these maps often want to take notes on certain maps or map re
 <h2><a id="comment_example"></a>3. Commentarial Annotations</h2>
 
 <p>Commenting on maps or map segments is another frequent historic map annotation use case. This form of annotation varies in technical complexity, depending on the body structure and the annotation target. In the following, we illustrate how to represent various forms of commentarial annotations.</p>
-
-
-<h3><a id="comment_simple"/>3.1. Simple Comment on a Map</h3>
 
 <p>Associating unstructured text with a whole map is the simplest use case. The body is represented as inline information, the target is the map image file.</p>
 
