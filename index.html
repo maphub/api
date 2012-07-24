@@ -23,8 +23,8 @@
     <p>This document describes how <a href="http://maphub.github.com/" title="maphub">Maphub</a> provides a Linked Data API by implementing the <a href="http://www.openannotation.org/" title="Welcome">W3C Open Annotation</a> specification. The provided examples demonstrate how the Open Annotation model could be used for representing annotations on digitized historic maps or high-resolution image material. They also show the use of <a href="http://www.openannotation.org/spec/extension/#SemanticTag" title="Open Annotation Draft Extension Specification">Semantic Tags</a>. The Maphub API currently provides access to two types of annotations:</p>   
 
     <ul>
-        <li><strong><a href="http://en.wikipedia.org/wiki/Georeference" title="Georeference - Wikipedia, the free encyclopedia">Georeference</a> Annotation</strong>: users create an annotation with the intention to express a correspondence between a point/region on the map and a point/region in a defined geographic coordinate system or an authoritative Gazetteer. The goal of this type of annotation is to establish control points for raster image maps.</li>
-        <li><strong>Commentarial Annotation</strong>: users associate textual information, tags, links to thesaurus terms or Semantic Web resources, etc. with a point or region on the map. The goal of this type of annotation is to provide additional information about the map or a map segment.</li>
+        <li><strong><a href="http://en.wikipedia.org/wiki/Georeference" title="Georeference - Wikipedia, the free encyclopedia">Georeference</a> Annotation</strong>: users create an annotation with the intention to express a correspondence between a point/region on the map and either a point/region in a defined geographic coordinate system or an authoritative Gazetteer. The goal of this type of annotation is to establish control points for raster image maps.</li>
+        <li><strong>Commentarial Annotation</strong>: users associate textual information, tags, or links to thesaurus terms or Semantic Web resources, etc. with a point or region on the map. The goal of this type of annotation is to provide additional information about the map or map segment.</li>
     </ul>
 
     <p>The definitions and examples in this document refer to <strong>Maphub version 0.3</strong>.</p>
@@ -40,7 +40,7 @@
 1. <a href="#introduction">Introduction</a><br>
 1.1. <a href="#background">Background</a><br>
 1.2. <a href="#example">Example</a><br>
-1.3. <a href="#namespaces">Namespaces Used</a><br>
+1.3. <a href="#namespaces">Namespaces</a><br>
 
 2. <a href="#georef_example">Georeference Annotations</a><br>
 
@@ -64,17 +64,17 @@ A. <a href="#changelog">Change Log</a><br>
 
 <h2><a id="introduction" name="introduction"></a>1. Introduction</h2>
 <p>
-Historic maps record historical geographical information and give insight into socio-economic and environmental phenomena such as land use, river channel changes or flood. They allow the reconstruction of past urban environments and draw a picture of the cultural, political and religious context in which they were created. Their geographical accuracy tells us much about the state of technology at the time of their creation.
+Historic maps record historic geographic information and give insight into socio-economic and environmental phenomena such as land use, river channel changes or floods. They allow for the reconstruction of past urban environments and draw a picture of the cultural, political and religious context in which they were created. Their geographic accuracy tells us much about the state of technology at the time of their creation.
 </p>
 <p>
-Scholars who study these maps often want to take notes on certain maps or map regions, view certain areas in the context of today’s maps, associate map regions with historical events, places, or even persons. By allowing them to annotate maps we allow them to express and share their knowledge with others. However, the historic maps that are currently published on the Web, mostly by libraries, don’t allow scholars or end-users to annotate them in a way that is interoperable across systems.
+Scholars who study these maps often want to take notes on certain maps or map regions, view certain areas in the context of today’s maps, and associate map regions with historical events, places, or even people. By allowing them to annotate maps we allow them to express and share their knowledge with others. However, the historic maps that are currently published on the Web, mostly by libraries, don’t allow scholars or end-users to annotate them in a way that is interoperable across systems.
 </p>
 
 <h3><a id="background" name="background"></a>1.1 Background</h3>
 
-<p><a href="http://maphub.github.com/" title="maphub">Maphub</a> is a Web portal for hosting digitized, high-resolution historic maps. It allows users to annotate and contribute their knowledge about historic maps. It is currently being developed as part of the <a href="http://www.openannotation.org/" title="Welcome">Open Annotation Collaboration</a>. All user-contributed annotations are openly shared on the Web and represented in the <a href="http://www.openannotation.org/spec/core/" title="Open Annotation Draft Data Model">W3C Open Annotation data model</a>. Thereby they become Web resources that can be accessed by various clients simply by dereferencing HTTP URIs.</p>
+<p><a href="http://maphub.github.com/" title="maphub">Maphub</a> is a Web portal for hosting digitized, high-resolution, historic maps. It allows users to annotate and contribute their knowledge about historic maps. It is currently being developed as part of the <a href="http://www.openannotation.org/" title="Welcome">Open Annotation Collaboration</a>. All user-contributed annotations are openly shared on the Web and represented in the <a href="http://www.openannotation.org/spec/core/" title="Open Annotation Draft Data Model">W3C Open Annotation data model</a>. Thereby they become Web resources that can be accessed by various clients simply by dereferencing HTTP URIs.</p>
     
-<p>The current demo is bootstrapped with approximately 6000 public domain high-resolution map scans from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">Library of Congress Historic Map division</a>. A first <a href="http://vimeo.com/21390925" title="">concept screencast</a> and the portal's <a href="https://github.com/maphub/maphub-portal">source code</a> is available. The portal is built using <a href="http://rubyonrails.org/" title="Ruby on Rails">Ruby on Rails</a> and reuses components (and algorithms) that were previously developed for the <a href="https://github.com/yuma-annotation">YUMA annotation framework</a>. User-contributed annotations are linked with resources in other publicly available datasources, such as <a href="http://dbpedia.org/" title="DBPedia">DBpedia</a> and <a href="http://www.geonames.org/" title="GeoNames">GeoNames</a>.</p>
+<p>The current demo is bootstrapped with approximately 6000 public domain high-resolution map scans from the <a href="http://memory.loc.gov/ammem/gmdhtml/" title="Map Collections Home Page">Library of Congress Historic Map division</a>. A first <a href="http://vimeo.com/21390925" title="">concept screencast</a> and the portal's <a href="https://github.com/maphub/maphub-portal">source code</a> are available. The portal is built using <a href="http://rubyonrails.org/" title="Ruby on Rails">Ruby on Rails</a> and reuses components (and algorithms) that were previously developed for the <a href="https://github.com/yuma-annotation">YUMA annotation framework</a>. User-contributed annotations are linked with resources in other publicly available datasources, such as <a href="http://dbpedia.org/" title="DBPedia">DBpedia</a> and <a href="http://www.geonames.org/" title="GeoNames">GeoNames</a>.</p>
 
 <h3><a id="example" name="example"></a>1.2 Example</h3>
 
@@ -97,9 +97,9 @@ Scholars who study these maps often want to take notes on certain maps or map re
 </table>
 </center>
 
-<p>Map images are usually converted into tile sets for online viewing and zooming. MapHub uses the <a href="http://code.google.com/p/magicktiler/" title="magicktiler - A Java tool and embeddable library for converting images into formats suitable for publishing as zoomable Web images. - Google Project Hosting">magicktiler</a> tool to create Zoomify tilesets from the original JP2 images. The tilesets now reside parallel to the original image files, e.g.: <a href="http://samos.mminf.univie.ac.at/maps/ts_zoomify/g3200.ct000725C.jp2">http://samos.mminf.univie.ac.at/maps/ts_zoomify/g3200.ct000725C.jp2</a>. But since tilesets represent a special view of the original map image, we can assume that the <strong>target</strong> of an annotation is always the original full-resolution <strong>map image file</strong>.</p>
+<p>Map images are usually converted into tile sets for online viewing and zooming. MapHub uses the <a href="http://code.google.com/p/magicktiler/" title="magicktiler - A Java tool and embeddable library for converting images into formats suitable for publishing as zoomable Web images. - Google Project Hosting">magicktiler</a> tool to create Zoomify tilesets from the original JP2 images. The tilesets now reside parallel to the original image files, e.g.: <a href="http://samos.mminf.univie.ac.at/maps/ts_zoomify/g3200.ct000725C.jp2">http://samos.mminf.univie.ac.at/maps/ts_zoomify/g3200.ct000725C.jp2</a>. However, since tilesets represent a special view of the original map image, we can assume that the <strong>target</strong> of an annotation is always the original full-resolution <strong>map image file</strong>.</p>
 
-<h3><a id="namespaces" name="namespaces"></a>1.3 Namespaces Used</h3>
+<h3><a id="namespaces" name="namespaces"></a>1.3 Namespaces</h3>
 
 <p>This document uses the following namespaces and prefixes to indicate those namespaces:</p>
 
@@ -255,7 +255,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <h2><a id="comment_example"></a>3. Commentarial Annotations</h2>
 
-<p>Commenting on maps or map segments, as shown in Figure 4, is major use case in Maphub. Users can select and comment map regions and while they are writing their comments, the system proposes possibly relevant tags. These tags are in fact links to <a href="http://dbpedia.org/About" title="wiki.dbpedia.org : About">DBPedia</a>, and therefore denoted as Semantic Tags. Accepted tags become part of the annotation.</p>
+<p>Commenting on maps or map segments, as shown in Figure 4, is a major use case in Maphub. Users can select and then comment upon map regions. While the uer is writing their comments, the system proposes possibly relevant tags. These tags are in fact links to <a href="http://dbpedia.org/About" title="wiki.dbpedia.org : About">DBPedia</a>, and therefore denoted as Semantic Tags. Accepted tags become part of the annotation.</p>
 
 <p>Figure 4 shows an example commentarial map annotation created in Maphub.</p>
 
@@ -287,7 +287,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
 </table>
 </center>
 
-<p>Figure 5 illustrates how this annotation is represented in the Open Collaboration Model. The annotation text is represented as <a href="http://www.openannotation.org/spec/core/#InlineBody" title="Open Annotation Draft Data Model">Inline Body</a>, and the semantic tags as <a href="http://www.openannotation.org/spec/extension/#SemanticTag" title="Open Annotation Draft Extension Specification">Semantic Tags</a>. Since the annotation is about part of the map resource, the annotation target is a <a href="http://www.openannotation.org/spec/core/#TargetSpecific" title="Open Annotation Draft Data Model">Specific Target</a>, which is further described by two <a href="http://www.openannotation.org/spec/core/#Selector" title="Open Annotation Draft Data Model">Selector</a> representations: one <a href="http://www.openannotation.org/spec/extension/#SelectorSvg" title="Open Annotation Draft Extension Specification">SVGSelector</a> and a custom Selector that expresses the same information in the <a href="http://en.wikipedia.org/wiki/Well-known_text" title="Well-known text - Wikipedia, the free encyclopedia">Well-known text (WKT)</a> markup language, which is commonly used in geographic information systems.</p>
+<p>Figure 5 illustrates how this annotation is represented in the Open Collaboration Model. The annotation text is represented as an<a href="http://www.openannotation.org/spec/core/#InlineBody" title="Open Annotation Draft Data Model">Inline Body</a>, and the semantic tags as <a href="http://www.openannotation.org/spec/extension/#SemanticTag" title="Open Annotation Draft Extension Specification">Semantic Tags</a>. Since the annotation is about part of the map resource, the annotation target is a <a href="http://www.openannotation.org/spec/core/#TargetSpecific" title="Open Annotation Draft Data Model">Specific Target</a>, which is further described by two <a href="http://www.openannotation.org/spec/core/#Selector" title="Open Annotation Draft Data Model">Selector</a> representations: one <a href="http://www.openannotation.org/spec/extension/#SelectorSvg" title="Open Annotation Draft Extension Specification">SVGSelector</a> and a custom Selector that expresses the same information in the <a href="http://en.wikipedia.org/wiki/Well-known_text" title="Well-known text - Wikipedia, the free encyclopedia">Well-known text (WKT)</a> markup language, which is commonly used in geographic information systems.</p>
 
 <center>
 <table width="85%">
@@ -365,7 +365,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <h2><a id="annotation_index"></a>4. Annotation Index</h2>
 
-<p>Individual Georeference and Commentarial Annotations can be retrieved by dereferencing their HTTP URI, as shown before. To get list of available annotations, Maphub offers two annotation indices, one for each annotation type. An annotation index is represented in the <a href="http://www.openarchives.org/ore/" title="Open Archives Initiative Protocol - Object Exchange and Reuse">OAI Object Reuse and Exchange</a> model. Figure 6 and 7 show the two indices currently exposed by Maphub.</p>
+<p>Individual Georeference and Commentarial Annotations can be retrieved by dereferencing their HTTP URI, as shown before. To get a list of available annotations, Maphub offers two annotation indices; one for each annotation type. An annotation index is represented in the <a href="http://www.openarchives.org/ore/" title="Open Archives Initiative Protocol - Object Exchange and Reuse">OAI Object Reuse and Exchange</a> model. Figure 6 and 7 show the two indices currently exposed by Maphub.</p>
 
 <p>An annotation index can be retrieved by executing the following curl request:
 <br/>
