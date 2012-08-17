@@ -195,7 +195,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
 <p>Georeference Annotations in Maphub are dereferenceable Web resources. When a client issues an HTTP GET request against the Georeference Annotation HTTP URI, Maphub determines the response format based on the value of the HTTP Accept header submitted by the client.</p>
 
 <p>Figure 3 shows an example Georeference Annotation represented in the Open Annotation model. It can be retrieved by executing the following curl request:</br>
-<code>curl -H "Accept: text/turtle" http://maphubdev.mminf.univie.ac.at/control_points/1</code>
+<code>curl -H "Accept: text/turtle" http://maphub.herokuapp.com/control_points/4</code>
 </p>
 
 <center>
@@ -214,36 +214,39 @@ Scholars who study these maps often want to take notes on certain maps or map re
         <div class="exsubhead">Georeference Annotation - Turtle serialization</div>
         <pre class="code">
 
-        @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-        @prefix dcterms: &lt;http://purl.org/dc/dcmitype/&gt; .
-        @prefix foaf: &lt;http://xmlns.com/foaf/spec/&gt; .
-        @prefix maphub: &lt;http://maphub.info/ns/vocab#&gt; .
-        @prefix oa: &lt;http://www.w3.org/ns/openannotation/core/&gt; .
-        @prefix oax: &lt;http://www.w3.org/ns/openannotation/extensions/&gt; .
         @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix oa: &lt;http://www.w3.org/ns/openannotation/core/&gt; .
+        @prefix foaf: &lt;http://xmlns.com/foaf/spec/&gt; .
+        @prefix oax: &lt;http://www.w3.org/ns/openannotation/extensions/&gt; .
+        @prefix dcterms: &lt;http://purl.org/dc/dcmitype/&gt; .
+        @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+        @prefix maphub: &lt;http://maphub.info/ns/vocab#GeoReference&gt; .
 
-        &lt;http://maphubdev.mminf.univie.ac.at/control_points/1&gt; a oa:Annotation,
-             oax:Tagging,
-             maphub:GeoReference;
-           oa:annotated &quot;2012-07-18T02:01:07Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt;;
-           oa:annotator &lt;a88df844-d14b-11e1-b9b2-00163e110825&gt;;
-           oa:generated &quot;2012-07-18T02:01:07Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt;;
-           oa:generator &lt;http://maphubdev.mminf.univie.ac.at&gt;;
-           oa:hasTarget &lt;a88ea76c-d14b-11e1-b9b2-00163e110825&gt;;
-           oax:hasSemanticTag &lt;http://sws.geonames.org/2643743/&gt; .
+        &lt;http://maphub.herokuapp.com/control_points/4&gt;
+            a maphub:GeoReference, oa:Annotation, oax:Tagging ;
+            oa:annotated &quot;2012-08-17T17:13:41Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt; ;
+            oa:annotator &lt;http://maphub.herokuapp.com/control_points/881c00ca-e892-11e1-a637-1231381d2be6&gt; ;
+            oa:generated &quot;2012-08-17T17:13:41Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt; ;
+            oa:generator &lt;http://maphub.herokuapp.com&gt; ;
+            oa:hasTarget &lt;http://maphub.herokuapp.com/control_points/8824e514-e892-11e1-a637-1231381d2be6&gt; ;
+            oax:hasSemanticTag &lt;http://sws.geonames.org/2643743/&gt; .
 
-        &lt;a88df844-d14b-11e1-b9b2-00163e110825&gt; foaf:mbox &quot;bernhard.haslhofer@cornell.edu&quot;;
-           foaf:name &quot;behas&quot; .
+        &lt;http://maphub.herokuapp.com/control_points/881c00ca-e892-11e1-a637-1231381d2be6&gt;
+            foaf:mbox &quot;bernhard.haslhofer@cornell.edu&quot; ;
+            foaf:name &quot;behas&quot; .
 
-        &lt;a88ea76c-d14b-11e1-b9b2-00163e110825&gt; a oa:SpecificResource;
-           oa:hasSelector &lt;a88f6292-d14b-11e1-b9b2-00163e110825&gt;;
-           oa:hasSource &lt;http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2&gt; .
+        &lt;http://maphub.herokuapp.com/control_points/8824e514-e892-11e1-a637-1231381d2be6&gt;
+            a oa:SpecificResource ;
+            oa:hasSelector &lt;http://maphub.herokuapp.com/control_points/88254b62-e892-11e1-a637-1231381d2be6&gt; ;
+            oa:hasSource &lt;http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2&gt; .
 
-        &lt;a88f6292-d14b-11e1-b9b2-00163e110825&gt; a oa:FragmentSelector;
-           rdf:value &quot;xywh=6550,6228,1,1&quot; .
+        &lt;http://maphub.herokuapp.com/control_points/88254b62-e892-11e1-a637-1231381d2be6&gt;
+            a oa:FragmentSelector ;
+            rdf:value &quot;xywh=6551,6231,1,1&quot; .
 
-        &lt;http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2&gt; a dcterms:StillImage;
-           dc:format &quot;image/jp2&quot; .
+        &lt;http://samos.mminf.univie.ac.at/maps/raw/g3200.ct000725C.jp2&gt;
+            dc:format &quot;image/jp2&quot; ;
+            a dcterms:StillImage .
 
         </pre>
         </td>
@@ -260,7 +263,7 @@ Scholars who study these maps often want to take notes on certain maps or map re
 <p>Figure 4 shows an example commentarial map annotation created in Maphub.</p>
 
 <p>The annotation can be retrieved by executing the following curl request:
-<code>curl -H "Accept: text/turtle" http://maphubdev.mminf.univie.ac.at/annotations/1</code>
+<code>curl -H "Accept: text/turtle" http://maphub.herokuapp.com/annotations/4</code>
 </p>
 
 <center>
@@ -311,11 +314,11 @@ Scholars who study these maps often want to take notes on certain maps or map re
             @prefix oax: &lt;http://www.w3.org/ns/openannotation/extensions/&gt; .
             @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 
-            &lt;http://maphubdev.mminf.univie.ac.at/annotations/1&gt; a oa:Annotation;
+            &lt;http://maphub.herokuapp.com/annotations/4&gt; a oa:Annotation;
                oa:annotated &quot;2012-07-18T02:03:58Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt;;
                oa:annotator &lt;274c4218-d14b-11e1-b9b2-00163e110825&gt;;
                oa:generated &quot;2012-07-18T02:03:58Z&quot;^^&lt;http://www.w3.org/2001/XMLSchema#dateTime&gt;;
-               oa:generator &lt;http://maphubdev.mminf.univie.ac.at&gt;;
+               oa:generator &lt;http://maphub.herokuapp.com&gt;;
                oa:hasBody &lt;275163a6-d14b-11e1-b9b2-00163e110825&gt;;
                oa:hasTarget &lt;2751d020-d14b-11e1-b9b2-00163e110825&gt;;
                oax:hasSemanticTag &lt;http://dbpedia.org/resource/Mediterranean_Sea&gt;,
@@ -369,9 +372,9 @@ Scholars who study these maps often want to take notes on certain maps or map re
 
 <p>An annotation index can be retrieved by executing the following curl request:
 <br/>
-<code>curl http://maphubdev.mminf.univie.ac.at/control_points.rdf</code>
+<code>curl http://maphub.herokuapp.com/control_points.rdf</code>
 <br/>
-<code>curl http://maphubdev.mminf.univie.ac.at/annotations.rdf</code>
+<code>curl http://maphub.herokuapp.com/annotations.rdf</code>
 <br/>
 </p>
 
@@ -396,19 +399,19 @@ Scholars who study these maps often want to take notes on certain maps or map re
                 xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
                 xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; &gt;
 
-                &lt;rdf:Description rdf:about=&quot;http://maphubdev.mminf.univie.ac.at/control_points&quot;&gt;
+                &lt;rdf:Description rdf:about=&quot;http://maphub.herokuapp.com/control_points&quot;&gt;
                     &lt;rdf:type rdf:resource=&quot;http://www.openarchives.org/ore/terms/Aggregation&quot;/&gt;
                     &lt;dc:title&gt;Maphub Controlpoints&lt;/dc:title&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/1&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/2&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/3&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/4&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/9&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/10&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/11&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/12&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/13&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/control_points/14&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/1&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/2&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/3&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/4&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/9&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/10&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/11&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/12&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/13&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/control_points/14&quot;/&gt;
                 &lt;/rdf:Description&gt;
 
             &lt;/rdf:RDF&gt;
@@ -439,11 +442,14 @@ Scholars who study these maps often want to take notes on certain maps or map re
                 xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;
                 xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot; &gt;
 
-                &lt;rdf:Description rdf:about=&quot;http://maphubdev.mminf.univie.ac.at/annotations&quot;&gt;
+                &lt;rdf:Description rdf:about=&quot;http://maphub.herokuapp.com/annotations&quot;&gt;
                     &lt;rdf:type rdf:resource=&quot;http://www.openarchives.org/ore/terms/Aggregation&quot;/&gt;
                     &lt;dc:title&gt;Maphub Commentarial Annotations&lt;/dc:title&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/annotations/1&quot;/&gt;
-                    &lt;ore:aggregates rdf:resource=&quot;http://maphubdev.mminf.univie.ac.at/annotations/5&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/annotations/1&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/annotations/2&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/annotations/3&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/annotations/4&quot;/&gt;
+                    &lt;ore:aggregates rdf:resource=&quot;http://maphub.herokuapp.com/annotations/5&quot;/&gt;
                 &lt;/rdf:Description&gt;
 
             &lt;/rdf:RDF&gt;        
